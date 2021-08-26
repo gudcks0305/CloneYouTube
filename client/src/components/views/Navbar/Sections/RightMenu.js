@@ -24,7 +24,7 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
-          <a href="/login" style={{height:"100%"}}>Signin</a>
+          <a href="/login" >Signin</a>
         </Menu.Item>
         <Menu.Item key="app">
           <a href="/register">Signup</a>
@@ -35,7 +35,7 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="create">
-          <a href="/video/upload"><img src alt="Upload" /></a>
+          <a href="/video/upload">Upload</a>
         </Menu.Item>
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
