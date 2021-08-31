@@ -1,36 +1,48 @@
-import React,{useState , useSelector} from 'react'
+import React,{useState } from 'react'
 import {Comment , Avatar ,Button ,Input} from 'antd'
 import axios from 'axios'
+import {useSelector} from 'react-redux';
+
 function SingleComment(props) {
-    console.log(props)
-    //const user = useSelector(state =>state.user)
+
+    const user = useSelector(state =>state.user)
     const [OpenReply, setOpenReply] = useState(false)
     const [CommentValue, setCommentValue] = useState("")
     const onClickReplyOpen = () =>{
         setOpenReply(!OpenReply)
     }
+
     const actions = [
         <span onClick={onClickReplyOpen} key = "comment-basic-reply-to">Reply to</span>
     ]
     const onHandleChange = (event) =>{
-        setCommentValue(event.currentTarget.CommentValue)
+        //console.log(event.currentTarget);
+        setCommentValue(event.currentTarget.value)
     }
+    
+   /*  const handleChange = (e) => {
+        setCommentValue(e.currentTarget.value)
+    } */
+    //console.log(CommentValue)
     const onSumit = (event) =>{
         event.preventDefault();
-       /*  const variable = {
+        const variable = {
             content : CommentValue,
             writer : user.userData._id,
-            postId : props.videoId,
-            responseTo : props.;
+            postId : props.postId,
+            responseTo : props.comment._id
         }
         axios.post('/api/comment/saveComment', variable)
         .then(response => {
             if(response.data.success){
-                 console.log(response.data.result)
+                setCommentValue("");
+                setOpenReply(!OpenReply)
+                props.refreshFuntion(response.data.result)
+                 
             }else{
                 alert('코멘트 저장 못했어요')
             }
-        }) */
+        })
     }
     return (
         <div>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React , {useState} from 'react';
 import {useSelector} from 'react-redux';
 import SingleComment from './SingleComment';
-
+import ReplyComment from './ReplyComment';
 function Comment(props) {
     //console.log(props)
     const user = useSelector(state =>state.user)
@@ -22,13 +22,14 @@ function Comment(props) {
         axios.post('/api/comment/saveComment', variable)
         .then(response => {
             if(response.data.success){
-                 console.log(response.data.result)
+                setCommentValue("");
+                props.refreshFuntion(response.data.result)
             }else{
                 alert('코멘트 저장 못했어요')
             }
         })
     }
-    console.log(props)
+    
     return (
         <div>
             <br></br>
@@ -37,7 +38,16 @@ function Comment(props) {
             <hr></hr>
             
             {props.commentLists && props.commentLists.map((comment ,index)=>(
-                <SingleComment  comment = {comment} postId = {props.postId}/>
+                (!comment.responseTo &&
+                    <React.Fragment>
+                    <SingleComment refreshFuntion={props.refreshFuntion}  comment = {comment} postId = {props.postId}/>
+                    <ReplyComment parentCommentId={comment._id} commentLists = {props.commentLists} postId = {props.postId} refreshFuntion={props.refreshFuntion}></ReplyComment>
+                    </React.Fragment>
+                   
+                )
+                
+               
+            
             ))}
             
             <form style= {{display : 'flex'}} onSubmit={onSumit}>

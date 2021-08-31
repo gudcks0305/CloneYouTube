@@ -28,7 +28,7 @@ router.post("/getComments", (req, res) => {
         .populate('writer')
         .exec((err, comments) => {
             if (err) return res.status(400).send(err)
-            console.log(comments)
+            //console.log(comments)
             res.status(200).json({ success: true, comments })
         })
 

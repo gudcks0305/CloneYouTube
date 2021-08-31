@@ -7,10 +7,10 @@ import Comment from './Sections/Comment'
 function VideoDetailPage(props) {
 
     const videoId = props.match.params.videoId;
-    //console.log(videoId)
+    
     const variable = {videoId:videoId}
     const [Comments, setComments] = useState([])
-
+    console.log(Comments)
     const [VideoDetail, setVideoDetail] = useState([])
    // const [Comments, setComments] = useState();
 
@@ -41,7 +41,9 @@ function VideoDetailPage(props) {
        
 
     }, [])
-
+    const refreshFuntion = (newComment) =>{
+        setComments(Comments.concat(newComment))
+    }
     if(VideoDetail.writer){
         //console.log(VideoDetail)
         const subscriptionButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo = {VideoDetail.writer._id} userFrom ={localStorage.getItem('userId')}/>
@@ -63,7 +65,7 @@ function VideoDetailPage(props) {
       
                       </List.Item.Meta>
                   </List.Item>
-                  <Comment commentLists ={Comments} postId ={videoId}></Comment>
+                  <Comment refreshFuntion= {refreshFuntion}commentLists ={Comments} postId ={videoId}></Comment> {/*음.... 로그인 한사람 아니면 코멘트 못달게 막아야겠음.. */}
                 </div>
                 </Col>
                 <Col lg={6} xs={24}>
