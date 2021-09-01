@@ -4,6 +4,7 @@ import axios from 'axios';
 import SideVideo from "./Sections/SideVideo.js";
 import  Subscribe  from './Sections/Subscribe';
 import Comment from './Sections/Comment'
+import LikeDislikes from './Sections/LikeDislikes.js';
 function VideoDetailPage(props) {
 
     const videoId = props.match.params.videoId;
@@ -46,6 +47,12 @@ function VideoDetailPage(props) {
     }
     if(VideoDetail.writer){
         //console.log(VideoDetail)
+       /*  const subscriptionButton = 
+        if(VideoDetail.writer._id !== localStorage.getItem('userId')){
+            subscriptionButton = <Subscribe userTo = {VideoDetail.writer._id} userFrom ={localStorage.getItem('userId')}/>
+        } */
+        console.log("id"+localStorage.getItem('userId'))
+        console.log("writerid"+VideoDetail.writer._id)
         const subscriptionButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo = {VideoDetail.writer._id} userFrom ={localStorage.getItem('userId')}/>
         
 
@@ -54,8 +61,9 @@ function VideoDetailPage(props) {
                 <Col lg ={18} xs ={24}>
                 <div style={{width: '100%', padding:'3rem 4em'}}>
                   <video  style={{width: '100%'}} src= {`http://localhost:5000/${VideoDetail.filePath}`} controls></video>
+                  {/* subscriptionButton */}
                   <List.Item
-                      actions = {subscriptionButton}
+                      actions = {[<LikeDislikes  userId = {localStorage.getItem('userId')}video = {videoId}/>,subscriptionButton]}
                   >
                       <List.Item.Meta
                           avatar = {<Avatar src = {VideoDetail.writer.image}></Avatar>}

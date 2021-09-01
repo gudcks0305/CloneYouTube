@@ -24,6 +24,6 @@
     "nodemon": "^2.0.12"
   },
   "devDependencies": {
-    "@ant-design/icons": "^4.6.3"
+    "@ant-design/icons": "^4.6.4"
   }
 }
